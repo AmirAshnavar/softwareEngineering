@@ -1,0 +1,41 @@
+<div *ngIf="isLoading" class="row mt-5">
+  <div class="spinner-grow mx-auto mt-5" style="width: 3rem; height: 3rem;" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+<div *ngIf="!isLoading && productsToShow.length==0" class="row">
+  <p class="mx-auto bg-secondary p-3 text-white">اثری یافت نشد (:</p>
+</div>
+<div class="py-3 justify-content-end row" *ngIf="!isLoading && productsToShow.length>0">
+  <div class="col-3 " *ngFor="let item of productsToShow">
+    <div class="card mx-auto my-2" style="width: 18rem;">
+      <img [src]="item.imagePath" class="card-img-top mx-auto mt-3" style="height: 16.5rem; width: 16.5rem;"
+        alt="item.title">
+      <div class="card-body">
+        <p class="card-text text-right" style="height: 7rem;">{{item.content}}</p>
+        <p class="card-text text-right">{{item.price}}$</p>
+      </div>
+      <div class="card-footer">
+        <div class="row justify-content-end mr-2 px-4">
+          <i class="material-icons col-4">
+            add_shopping_cart
+          </i>
+
+          <i class="material-icons col-4">
+            chat_bubble_outline
+          </i>
+
+          <div class="row col-4">
+            <i class="material-icons md-36 text-danger">favorite</i>
+            <small class="mt-1 ml-1 text-muted">{{item.likes.count}}</small>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

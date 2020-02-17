@@ -1,0 +1,83 @@
+<div class="container" *ngIf="userValid">
+  <div class="container bg-danger px-0 my-4">
+    <div class="row w-100 bg-light m-0 justify-content-end " *ngIf="userDataLoaded">
+      <div class="column mr-5 mt-3">
+        <div class="row justify-content-end ">
+          <p class="mr-2">{{artistData.category}}</p>
+          <span>-</span>
+          <p class="text-right ml-2 mr-3">{{artistData.artisicName}}</p>
+        </div>
+        <div class="row  justify-content-end">
+          <!-- <button class="btn btn-primary mr-3">دنبال کن</button> -->
+          <button class="btn btn-primary mr-4" *ngIf="!followed" (click)="pushFollowAction()">دنبال کن</button>
+          <button class="btn btn-dark mr-4" *ngIf="followed" (click)="pushFollowAction()">لغو دنبال</button>
+
+          <div class="bg-info row px-3">
+            <p class="mt-3 mr-1 text-white">اثر ثبت شده</p>
+            <p class="mt-3 text-white">{{artistData.productsCount}} </p>
+          </div>
+
+          <div class="bg-warning row px-3 ml-4">
+            <p class="mt-3 mr-1 text-white">دنبال کننده</p>
+            <p class="mt-3 text-white">{{artistData.followersCount}} </p>
+          </div>
+
+        </div>
+      </div>
+      <img src="../../../assets/user.jpg" width="120px" alt="" class="border rounded-circle">
+    </div>
+    <div *ngIf="!userDataLoaded" class="row">
+      <div class="spinner-grow mx-auto" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container bg-info py-3">
+    <div class="w-100 row">
+      <p class="font-weight-light ml-auto text-right rounded-sm border p-2 text-white"
+        style="font-size: 24px;width: max-content;">آثار ثبت شده</p>
+    </div>
+
+    <div *ngIf="!artistProductsLoaded" class="row">
+      <div class="spinner-grow mx-auto" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+
+    <div *ngIf="artistProductsLoaded && artistProducts.length==0" class="row">
+      <p class="mx-auto bg-secondary p-3 text-white">هنرمند اثر ثبت شده ای ندارد</p>
+    </div>
+    <div class="py-3 justify-content-end row" *ngIf="artistProductsLoaded && artistProducts.length>0">
+      <div class="col-4 " *ngFor="let item of artistProducts;index as i">
+        <div class="card mx-auto my-2" style="width: 18rem;">
+          <img [src]="item.imagePath" class="card-img-top mx-auto mt-3" style="height: 16.5rem; width: 16.5rem;"
+            alt="item.title">
+          <div class="card-body">
+            <p class="card-text text-right" style="height: 7rem;">{{item.content}}</p>
+            <p class="card-text text-right">{{item.price}}$</p>
+          </div>
+          <div class="card-footer">
+            <div class="row justify-content-end mr-2 px-4">
+              <i class="material-icons col-4">
+                add_shopping_cart
+              </i>
+
+              <i class="material-icons col-4">
+                chat_bubble_outline
+              </i>
+
+              <div class="row col-4">
+                <i class="material-icons md-36" *ngIf="!item.isLiked" style="cursor: pointer;"
+                  (click)="pushLikeAction(item._id , i)">favorite_border</i>
+                <i class="material-icons md-36 text-danger" *ngIf="item.isLiked" style="cursor: pointer;"
+                  (click)="pushLikeAction(item._id , i)">favorite</i>
+                <small class="mt-1 ml-1 text-muted">{{item.likes.count}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

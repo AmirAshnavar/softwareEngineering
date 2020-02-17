@@ -1,0 +1,33 @@
+<div class="sticky-top bg-white row justify-content-end px-5 mx-2 my-2">
+  <div class="w-100  row justify-content-end pr-3 mr-3">
+    <textarea class="w-50 text-right p-2 my-3 font-weight-light rounded-sm" style="resize: none;" rows="1"
+      placeholder="اثر یا هنرمند مورد نظر خود را جست و جو کنید"></textarea>
+    <img src="../../../assets/icon.png" class="mx-3" routerLink="/" style="border: none;cursor: pointer;" width="72px"
+      alt="">
+  </div>
+  <ul class="nav  mb-3">
+    <li class="nav-item">
+      <a class="nav-link font-weight-light" *ngIf="authService.getIsAuth()" style="text-decoration: none;"
+        (click)="authService.logout()">خروج</a>
+    </li>
+
+    <li class="nav-item" *ngIf="!authService.getIsAuth()">
+      <a class="nav-link font-weight-light" style="text-decoration: none;" [routerLink]="['/login']">ورود</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link font-weight-light" [routerLink]="['/home']" aria-disabled="true">صفحه من</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link font-weight-light" [routerLink]="['/showcase/all']">ویترین</a>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle font-weight-light " data-toggle="dropdown" href="#" role="button"
+        aria-haspopup="true" aria-expanded="false">دسته بندی آثار</a>
+      <div class="dropdown-menu">
+        <div *ngFor="let category of categories;index as i"><a class=" dropdown-item font-weight-light text-right"
+            style="cursor: pointer;" [routerLink]="['showcase/'+categoryNames[i]]">{{category}}</a></div>
+      </div>
+    </li>
+  </ul>
+
+</div>

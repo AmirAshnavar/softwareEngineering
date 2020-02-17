@@ -1,0 +1,82 @@
+<div class="container p-5">
+  <div class="spinner-grow" role="status" *ngIf="isLoading">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <form [formGroup]="form" (submit)="onSavePost()" *ngIf="!isLoading">
+    <div class="form-group">
+      <input type="text" class="form-control text-right" formControlName="title" placeholder="عنوان">
+    </div>
+    <div>
+      <div class="row justify-content-end mr-2">
+        <div class="image-preview " *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">
+          <img [src]="imagePreview" [alt]="form.value.title">
+        </div>
+        <button class="btn btn-info my-2 ml-auto" style="max-height: 40px;" type="button"
+          (click)="filePicker.click()">تصویر اثر</button>
+      </div>
+      <input type="file" #filePicker (change)="onImagePicked($event)">
+
+    </div>
+
+
+    <div class="form-group">
+      <textarea rows="4" class="form-control text-right" style="resize: none;" formControlName="content"
+        placeholder="توصیف اثر" required></textarea>
+    </div>
+
+    <div class="row justify-content-end mr-0 form-group">
+
+
+      <select name="category" formControlName="category" class="form-control my-1 w-25">
+        <option value="0" selected>نقاشی</option>
+        <option value="1">سفالگری</option>
+        <option value="2">فرش بافی</option>
+        <option value="3">مجسمه سازی</option>
+        <option value="4">میناکاری</option>
+      </select>
+
+    </div>
+
+
+    <div class="row justify-content-end mr-0 form-group">
+      <div class="mr-2">
+        <i class="material-icons d-block " style="cursor: pointer;" (click)='increasePrice()'>
+          arrow_drop_up
+        </i>
+        <i class="material-icons" style="cursor: pointer;" (click)='decreasePrice()'>
+          arrow_drop_down
+        </i>
+      </div>
+      <div class="input-group mb-2 mt-1 w-25">
+        <div class="input-group-prepend">
+          <div class="input-group-text  mb-2">{{priceLabel}}</div>
+        </div>
+        <input type="text" class="form-control" placeholder="{{shownPrice}}" readonly>
+      </div>
+
+      <p class="text-muted mt-2 ml-2">قیمت </p>
+    </div>
+
+    <div class="row justify-content-end mr-0 form-group">
+
+      <div class="">
+        <i class="material-icons d-block " style="cursor: pointer;" (click)='increaseUnit()'>
+          arrow_drop_up
+        </i>
+        <i class="material-icons" style="cursor: pointer;" (click)='decreaseUnit()'>
+          arrow_drop_down
+        </i>
+      </div>
+      <div class="input-group mb-2 mt-1 mr-3 w-25">
+        <div class="input-group-prepend">
+          <div class="input-group-text  mb-2">{{unitLabel}}</div>
+        </div>
+        <input type="text" class="form-control" placeholder="{{shownUnit}}" readonly>
+      </div>
+
+      <p class="text-muted mt-2 ml-2">واحد </p>
+    </div>
+
+    <button class="btn btn-primary" type="submit">ثبت اثر</button>
+  </form>
+</div>
